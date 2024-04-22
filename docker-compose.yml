@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  copilot-proxy:
+    container_name: copilot-proxy
+    image: alpine:latest
+    command: sh -c "apk update && apk add apache2-utils && apk add curl && apk add squid && rm -f /var/run/squid.pid && squid -N" # rm -f /var/run/squid.pid: to restart squid need to rm previous cache squid.pid first
+    ports:
+      - "3128:3128"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro #ro = Read only
+    networks:
+      - copilot-net
+    environment:
+      - SQUID_ENABLE_IPV6=true  # 啟用IPv6支持
+
+networks:
+  copilot-net:
+    driver: bridge
