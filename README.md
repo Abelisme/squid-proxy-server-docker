@@ -34,4 +34,10 @@ To start the proxy service, navigate to the directory containing this `docker-co
 
 ```bash
 docker-compose up -d
+docker exec -it copilot-proxy htpasswd -c /etc/squid/passwd root
 ```
+
+## Preview
+
+![image](readme-images/proxy.png)
+![image](readme-images/log.png)
